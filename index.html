@@ -19,29 +19,39 @@
     <header id="header">
       <h1>URL Shortener</h1>
       <p>
-        A Simple URL Shortener Built entirely with **Infrastructure-as-Code
-        (Terraform)** <br />and **Docker containers** on AWS ECS Fargate.
-        Zero-downtime blue/green deploys <br /> via GitHub Actions; costs < $25/month
-        when running.<br />
       </p>
     </header>
 
     <!-- Signup Form -->
     <form id="signup-form" method="post" action="#">
-      <input type="email" name="email" id="email" placeholder="Unshortened URL" />
-      <input type="submit" value="Shorten" />
+      <input
+        type="url"
+        name="url"
+        id="long_url"
+        placeholder="Enter the link here"
+        required
+      />
+      <input type="submit" value="Shorten URL" />
     </form>
+
+    <p id="result"></p>
 
     <!-- Footer -->
     <footer id="footer">
       <ul class="icons">
         <li>
-          <a href="https://github.com/connorcoop0/" target="_blank" class="icon brands fa-github"
+          <a
+            href="https://github.com/connorcoop0/terraform-ecs-url-shortener"
+            target="_blank"
+            class="icon brands fa-github"
             ><span class="label">GitHub</span></a
           >
         </li>
         <li>
-          <a href="#" class="icon brands fa-linkedin"
+          <a
+            href="https://www.linkedin.com/in/connorcoop/"
+            target="_blank"
+            class="icon brands fa-linkedin"
             ><span class="label">LinkedIn</span></a
           >
         </li>
