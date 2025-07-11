@@ -208,7 +208,7 @@
       const longUrl = document.getElementById("long_url").value;
 
       try {
-        const res = await fetch("http://backend:5000/shorten", {
+        const res = await fetch("http://localhost:5000/shorten", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
