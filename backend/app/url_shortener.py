@@ -3,7 +3,7 @@ import hashlib, boto3
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
+CORS(app, resources={r"/*": {"origins": "http://localhost:8080"}}, supports_credentials=True)
 
 # Change this to send to dynamo DB
 urlPair = ["", ""]
@@ -23,7 +23,7 @@ def shorten():
     # Generate a key
     key = gen_key(long_url)
 
-    # Assign the key
+    # Assign the key and longURL pair
     urlPair[0], urlPair[1] = key, long_url
     
     # return success code 200
@@ -31,9 +31,12 @@ def shorten():
 
 @app.route("/<key>")
 def go(key):
+    # if the key == our stored key, redirect
     if key == urlPair[0]:
-        item = urlPair
-        return redirect(item[1], 302)
+        # redirect to orginal link
+        return redirect(urlPair[1], 302)
+    
+    # if the key != our stored key, error
     else: 
         return (jsonify({"error":"Not found"}),404)
 
