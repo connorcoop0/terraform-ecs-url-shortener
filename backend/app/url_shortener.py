@@ -1,11 +1,9 @@
 from flask import Flask, render_template, request, jsonify, redirect
 import hashlib, boto3
+from flask_cors import CORS
 
-app = Flask(__name__, template_folder="", static_folder="")
-
-@app.route("/")
-def home():
-    return render_template("index.html")
+app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
 # Change this to send to dynamo DB
 urlPair = ["", ""]
@@ -33,8 +31,11 @@ def shorten():
 
 @app.route("/<key>")
 def go(key):
-    item = urlPair
-    return redirect(item[1], 302) if item else (jsonify({"error":"Not found"}),404)
+    if key == urlPair[0]:
+        item = urlPair
+        return redirect(item[1], 302)
+    else: 
+        return (jsonify({"error":"Not found"}),404)
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5000)
